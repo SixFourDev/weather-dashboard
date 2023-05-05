@@ -1,0 +1,68 @@
+header {
+  display: flex;
+  justify-content: center;
+  background-color: #0077be;
+  color: #fff;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 40px;
+  margin: 0;
+}
+
+.search {
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 30px;
+  width: 223px;
+}
+
+.search form {
+  display: flex;
+  flex-direction: column;
+}
+
+.search form input,
+.search form button {
+  margin-bottom: 1rem;
+}
+
+.search label {
+  font-size: 14px;
+}
+
+.search input[type="text"] {
+  border: 1px solid #ccc;
+  font-size: 16px;
+  padding: 10px;
+  width: 200px;
+  margin-right: 10px;
+}
+
+.search button[type="submit"] {
+  background-color: #007bff;
+  width: 223px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 10px 20px;
+  transition: all 0.2s ease-in-out;
+}
+
+.search button[type="submit"]:hover {
+  background-color: #0062cc;
+}
+
+.current-weather {
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 100px;
+  margin-top: -185px;
+  margin-left: 240px;
+}
+
+.forecast h3 {
+  margin-left: 240px;
+}
