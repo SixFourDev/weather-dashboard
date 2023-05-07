@@ -37,6 +37,7 @@ function getWeatherData(city) {
     });
 }
 
+// Create function to parse the current weather data
 function parseCurrentWeatherData(data) {
     // Extract the relevant weather data from response
     var temperatrue = data.main.temp;
@@ -49,6 +50,22 @@ function parseCurrentWeatherData(data) {
         humidity: humidity,
         windSpeed: windSpeed
     };
+}
+
+// Create a function to parse the 5-day forecast data
+function parseForecastData(data) {
+    // Extract the relevant weather data from response
+    var forecastData = data.list.map(function(item) {
+        return {
+            date: item.dt_txt,
+            temperature: item.main.temp,
+            humidity: item.main.humidity,
+            windSpeed: item.wind.speed
+        };
+    });
+
+    // Return an array of objects with the weather data
+    return forecastData;
 }
 
 // Get the city name from input field
