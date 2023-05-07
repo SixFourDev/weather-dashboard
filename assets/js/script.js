@@ -4,9 +4,21 @@ var apiKey = "0874d781cac886c8251059cc7a09d09a";
 // Create variables needed
 var searchForm = document.querySelector("form");
 var searchInput = document.querySelector("input");
+var cityInputEl = document.querySelector("#city");
 var cityDateEl = document.getElementById("city-date");
 var currentWeatherEl = document.getElementById("current-weather-data");
 var forecastEl = document.querySelector(".forecast-cards");
+
+searchForm.addEventListener("submit", function(event) {
+    // Prevent the form from submitting and refreshing the page
+    event.preventDefault();
+
+    // Get the value of the city input field
+    var city = cityInputEl.value.trim();
+
+    // Call the getWeatherData function with city
+    getWeatherData(city);
+});
 
 // Get the city name from input field
 // Use OpenWeather API to get current weather data for that city
