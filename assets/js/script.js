@@ -37,6 +37,20 @@ function getWeatherData(city) {
     });
 }
 
+function parseCurrentWeatherData(data) {
+    // Extract the relevant weather data from response
+    var temperatrue = data.main.temp;
+    var humidity = data.main.humidity;
+    var windSpeed = data.wind.speed;
+
+    // Return an object with the weather data
+    return {
+        temperature: temperatrue,
+        humidity: humidity,
+        windSpeed: windSpeed
+    };
+}
+
 // Get the city name from input field
 // Use OpenWeather API to get current weather data for that city
 // Use OpenWeather API to get the 5-day forecast data for that city
