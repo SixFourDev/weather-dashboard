@@ -23,17 +23,25 @@ searchForm.addEventListener("submit", function (event) {
 // Create getWeatherData function
 function getWeatherData(city) {
     // GET request to OpenWeather API for current weather data
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`)
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            // Parse the current weather data
+            var currentWeatherData = parseCurrentWeatherData(data);
+
+            // Update the current weather display on page
+            updateCurrentWeatherDisplay(currentWeatherData);
         });
 
     // GET request to OpenWeather API for 5-day forecast data
-    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`)
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric&cnt=5`)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            // Parse the 5-day forecast data
+            var forecastData = parseForecastData(data);
+
+            // Update the forecast display on the page
+            updateForecastDisplay(forecastData);
         });
 }
 
@@ -70,10 +78,27 @@ function parseForecastData(data) {
 
 function updateCurrentWeatherDisplay(weatherData) {
     // Create a string with current weather data
-    var currentWeatherString = "Temperature: $(weatherData.temperature} &def;C<br> Humidity: ${weatherData.humidity}%<br> Wind Speed: ${weatherData.windSpeed} m/s";
+    var currentWeatherString = "Temperature: $(weatherData.temperature} &def;F<br> Humidity: ${weatherData.humidity}%<br> Wind Speed: ${weatherData.windSpeed} m/s";
 
     // Update the HTML of the current weather data element
     currentWeatherEl.innerHTML = currentWeatherString;
+}
+
+function updateForecastDisplay(forecastData) {
+    // Create a string with the forecast data
+    var forecastString = "";
+
+    // Loop through the forecast data and create HTML for each forecast card
+    forecastData.forEach(function (item) {
+        forecastString += `<div class="forecast-cards">
+                          <h4>${item.date}</h4>
+                          <p>Temperature: ${item.temperature} &deg;F</p>
+                          <p>Humidity: ${item.humidity}%</p>
+                          <p>Wind Speed: ${item.windSpeed} mph</p>
+                        </div>`;
+    });
+
+    forecastEl.innerHTML = forecastString;
 }
 
 // Get the city name from input field
