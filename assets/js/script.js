@@ -20,6 +20,23 @@ searchForm.addEventListener("submit", function(event) {
     getWeatherData(city);
 });
 
+// Create getWeatherData function
+function getWeatherData(city) {
+    // GET request to OpenWeather API for current weather data
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    });
+
+    // GET request to OpenWeather API for 5-day forecast data
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    });
+}
+
 // Get the city name from input field
 // Use OpenWeather API to get current weather data for that city
 // Use OpenWeather API to get the 5-day forecast data for that city
