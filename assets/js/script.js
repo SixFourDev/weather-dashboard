@@ -9,7 +9,7 @@ var cityDateEl = document.getElementById("city-date");
 var currentWeatherEl = document.getElementById("current-weather-data");
 var forecastEl = document.querySelector(".forecast-cards");
 
-searchForm.addEventListener("submit", function(event) {
+searchForm.addEventListener("submit", function (event) {
     // Prevent the form from submitting and refreshing the page
     event.preventDefault();
 
@@ -24,17 +24,17 @@ searchForm.addEventListener("submit", function(event) {
 function getWeatherData(city) {
     // GET request to OpenWeather API for current weather data
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`)
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-    });
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        });
 
     // GET request to OpenWeather API for 5-day forecast data
     fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`)
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-    });
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        });
 }
 
 // Create function to parse the current weather data
@@ -55,7 +55,7 @@ function parseCurrentWeatherData(data) {
 // Create a function to parse the 5-day forecast data
 function parseForecastData(data) {
     // Extract the relevant weather data from response
-    var forecastData = data.list.map(function(item) {
+    var forecastData = data.list.map(function (item) {
         return {
             date: item.dt_txt,
             temperature: item.main.temp,
@@ -66,6 +66,14 @@ function parseForecastData(data) {
 
     // Return an array of objects with the weather data
     return forecastData;
+}
+
+function updateCurrentWeatherDisplay(weatherData) {
+    // Create a string with current weather data
+    var currentWeatherString = "Temperature: $(weatherData.temperature} &def;C<br> Humidity: ${weatherData.humidity}%<br> Wind Speed: ${weatherData.windSpeed} m/s";
+
+    // Update the HTML of the current weather data element
+    currentWeatherEl.innerHTML = currentWeatherString;
 }
 
 // Get the city name from input field
