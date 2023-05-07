@@ -66,3 +66,36 @@ h1 {
 .forecast h3 {
   margin-left: 240px;
 }
+
+.forecast-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-left: 180px;
+}
+
+.forecast-cards > div {
+  background-color: slategray;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  padding: 20px;
+  width: calc(12% - 20px);
+}
+
+.forecast-cards > div > h4 {
+  margin-bottom: 10px;
+  color: white;
+}
+
+.forecast-cards > div > img {
+  margin: 0 auto;
+  display: block;
+  max-width: 80%;
+  height: auto;
+}
+
+.forecast-cards > div > p {
+  margin: 10px 0;
+  color: white;
+}
