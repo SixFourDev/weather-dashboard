@@ -153,24 +153,27 @@ function displayCityList() {
     // Creates empty string for cityListString
     var cityListString = "";
     // Loops through city list
-    cityList.forEach(function(city) {
-        // Concatenates a new string with each city name
-        cityListString += `<li>${city}</li>`;
+    cityList.forEach(function (city) {
+      // Concatenates a new string with each city name
+      cityListString += `<li><button class="btn-city" data-city="${city}">${city}</button></li>`;
     });
     // Sets concatenated string to cityListEl var
     cityListEl.innerHTML = cityListString;
-}
+  
+    // Attach a click event listener to each button
+    var buttons = cityListEl.getElementsByTagName("button");
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].addEventListener("click", function (event) {
+        // Prevent the form from submitting and refreshing the page
+        event.preventDefault();
+  
+        // Get the value of the clicked button
+        var city = event.target.dataset.city;
+  
+        // Call the getWeatherData function with the city name
+        getWeatherData(city);
+      });
+    }
+  }
 
 searchForm.addEventListener("submit", handleSearch);
-
-// Get the city name from input field
-// Use OpenWeather API to get current weather data for that city
-// Use OpenWeather API to get the 5-day forecast data for that city
-
-// Display current weather data and 5-day forecast on the page
-
-// Store the city name in local storage when user generates a search
-
-// Display the list of city names in the search history section
-
-// When user clicks on a city from search history, retrieve data to be displayed again on page
