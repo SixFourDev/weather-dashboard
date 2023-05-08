@@ -1,6 +1,14 @@
 // Create a variable to hold API key
 var apiKey = "0874d781cac886c8251059cc7a09d09a";
 
+window.addEventListener("load", function() {
+    var cityData = localStorage.getItem("cities");
+    if (cityData) {
+        cityList = JSON.parse(cityData);
+        displayCityList();
+    }
+});
+
 // Create variables needed
 var searchForm = document.querySelector("form");
 var searchInput = document.querySelector("input");
@@ -115,6 +123,42 @@ function updateForecastDisplay(forecastData) {
 
     forecastEl.innerHTML = forecastString;
 }
+
+// Creates an empty array for cityList
+var cityList = [];
+// Creates a function for handleSearch with an event listener 
+function handleSearch(event) {
+    // Prevents the page from refreshing when form is submitted
+    event.preventDefault();
+    // Gets the value that is in input field and trims whitespace area
+    var cityName = searchInput.value.trim();
+    // Calls getWeatherData and gets the cityName
+    getWeatherData(cityName);
+    // Gets "cities" from local storage and assigns it to cityList, If no cities in local storage assign it an empty array
+    cityList = JSON.parse(localStorage.getItem("cities")) || [];
+    if (!cityList.includes(cityName)) {
+        cityList.push(cityName);
+        localStorage.setItem("cities", JSON.stringify(cityList));
+        displayCityList();
+    }
+}
+
+// Creates a function for displayCityList
+function displayCityList() {
+    // Assigns cityListEl and gets element "city-list"
+    var cityListEl = document.getElementById("city-list");
+    // Creates empty string for cityListString
+    var cityListString = "";
+    // Loops through city list
+    cityList.forEach(function(city) {
+        // Concatenates a new string with each city name
+        cityListString += `<li>${city}</li>`;
+    });
+    // Sets concatenated string to cityListEl var
+    cityListEl.innerHTML = cityListString;
+}
+
+searchForm.addEventListener("submit", handleSearch);
 
 // Get the city name from input field
 // Use OpenWeather API to get current weather data for that city
