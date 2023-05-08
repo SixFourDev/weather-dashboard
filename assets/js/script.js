@@ -52,13 +52,17 @@ function parseCurrentWeatherData(data) {
     var temperature = data.main.temp;
     var humidity = data.main.humidity;
     var windSpeed = data.wind.speed;
+    var conditionCode = data.weather[0].icon;
+
+    var iconUrl = `https://openweathermap.org/img/w/${conditionCode}.png`;
 
     // Return an object with the weather data
     return {
         cityName: cityName,
         temperature: temperature, 
         humidity: humidity,
-        windSpeed: windSpeed
+        windSpeed: windSpeed,
+        iconUrl: iconUrl
     };
 }
 
@@ -67,11 +71,15 @@ function parseCurrentWeatherData(data) {
 function parseForecastData(data) {
     // Extract the relevant weather data from response
     var forecastData = data.list.map(function (item) {
+        var conditionCode = item.weather[0].icon;
+        var iconURL = `https://openweathermap.org/img/w/${conditionCode}.png`;
+
         return {
             date: item.dt_txt,
             temperature: item.main.temp,
             humidity: item.main.humidity,
-            windSpeed: item.wind.speed
+            windSpeed: item.wind.speed,
+            iconURL: iconURL
         };
     });
 
@@ -81,11 +89,10 @@ function parseForecastData(data) {
 
 function updateCurrentWeatherDisplay(weatherData) {
     // Create a string with current weather data
-    var currentWeatherString = `<h3>${weatherData.cityName}</h3><br>
+    var currentWeatherString = `<h3>${weatherData.cityName}</h3><br><img src="${weatherData.iconUrl}" alt="Weather icon">
     <p>Temp: ${weatherData.temperature} &deg;F</p>
     <p>Humidity: ${weatherData.humidity}%</p>
-    <p>Wind Speed: ${weatherData.windSpeed} mph</p>
-  </div>`;
+    <p>Wind Speed: ${weatherData.windSpeed} mph</p>`;
 
     // Update the HTML of the current weather data element
     currentWeatherEl.innerHTML = currentWeatherString;
@@ -99,6 +106,7 @@ function updateForecastDisplay(forecastData) {
     forecastData.forEach(function (item) {
         forecastString += `<div class="forecast-cards">
                           <h4>${item.date}</h4>
+                          <img src="${item.iconURL}" alt="Weather icon">
                           <p>Temp: ${item.temperature} &deg;F</p>
                           <p>Humidity: ${item.humidity}%</p>
                           <p>Wind Speed: ${item.windSpeed} mph</p>
