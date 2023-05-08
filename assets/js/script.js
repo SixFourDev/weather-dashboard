@@ -34,7 +34,7 @@ function getWeatherData(city) {
         });
 
     // GET request to OpenWeather API for 5-day forecast data
-    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric&cnt=5`)
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=imperial&cnt=5`)
         .then(response => response.json())
         .then(data => {
             // Parse the 5-day forecast data
@@ -48,17 +48,20 @@ function getWeatherData(city) {
 // Create function to parse the current weather data
 function parseCurrentWeatherData(data) {
     // Extract the relevant weather data from response
-    var temperatrue = data.main.temp;
+    var cityName = data.name;
+    var temperature = data.main.temp;
     var humidity = data.main.humidity;
     var windSpeed = data.wind.speed;
 
     // Return an object with the weather data
     return {
-        temperature: temperatrue,
+        cityName: cityName,
+        temperature: temperature, 
         humidity: humidity,
         windSpeed: windSpeed
     };
 }
+
 
 // Create a function to parse the 5-day forecast data
 function parseForecastData(data) {
@@ -78,7 +81,11 @@ function parseForecastData(data) {
 
 function updateCurrentWeatherDisplay(weatherData) {
     // Create a string with current weather data
-    var currentWeatherString = "Temperature: $(weatherData.temperature} &def;F<br> Humidity: ${weatherData.humidity}%<br> Wind Speed: ${weatherData.windSpeed} m/s";
+    var currentWeatherString = `<h3>${weatherData.cityName}</h3><br>
+    <p>Temp: ${weatherData.temperature} &deg;F</p>
+    <p>Humidity: ${weatherData.humidity}%</p>
+    <p>Wind Speed: ${weatherData.windSpeed} mph</p>
+  </div>`;
 
     // Update the HTML of the current weather data element
     currentWeatherEl.innerHTML = currentWeatherString;
