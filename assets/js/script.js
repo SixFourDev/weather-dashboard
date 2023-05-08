@@ -81,9 +81,11 @@ function parseForecastData(data) {
     var forecastData = data.list.map(function (item) {
         var conditionCode = item.weather[0].icon;
         var iconURL = `https://openweathermap.org/img/w/${conditionCode}.png`;
+        var date = new Date(item.dt_txt);
+        var formattedDate = date.toLocaleDateString();
 
         return {
-            date: item.dt_txt,
+            date: formattedDate,
             temperature: item.main.temp,
             humidity: item.main.humidity,
             windSpeed: item.wind.speed,
@@ -94,6 +96,7 @@ function parseForecastData(data) {
     // Return an array of objects with the weather data
     return forecastData;
 }
+
 
 function updateCurrentWeatherDisplay(weatherData) {
     // Create a string with current weather data
