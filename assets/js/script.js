@@ -99,7 +99,7 @@ function updateForecastDisplay(forecastData) {
     forecastData.forEach(function (item) {
         forecastString += `<div class="forecast-cards">
                           <h4>${item.date}</h4>
-                          <p>Temperature: ${item.temperature} &deg;F</p>
+                          <p>Temp: ${item.temperature} &deg;F</p>
                           <p>Humidity: ${item.humidity}%</p>
                           <p>Wind Speed: ${item.windSpeed} mph</p>
                         </div>`;
