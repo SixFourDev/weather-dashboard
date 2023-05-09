@@ -103,3 +103,15 @@ h1 {
   margin: 10px 0;
   color: white;
 }
+
+.btn-city {
+  background-color: lightgray;
+  border: none;
+  margin-bottom: 15px;
+  width: 222px;
+  padding: 10px;
+}
+
+#city-list {
+  list-style: none;
+}
